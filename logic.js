@@ -25,13 +25,22 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 $(".UV").text(response.value);
-                queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=current,minutely,hourly,alerts&appid=${APIkey}`;
+                queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=current,minutely,hourly,alerts&units=imperial&appid=${APIkey}`;
                 $.ajax({
                     url: queryURL,
                     method: "GET"
                 }).then(function (forecast) {
                     console.log(forecast);
-
+                    $(".temp-first").text(forecast.daily[1].temp.day+ "F")
+                    $(".hum-first").text(forecast.daily[1].humidity+ "%")
+                    $(".temp-second").text(forecast.daily[2].temp.day+ "F")
+                    $(".hum-second").text(forecast.daily[2].humidity+ "%")
+                    $(".temp-third").text(forecast.daily[3].temp.day+ "F")
+                    $(".hum-third").text(forecast.daily[3].humidity+ "%")
+                    $(".temp-fourth").text(forecast.daily[4].temp.day+ "F")
+                    $(".hum-fourth").text(forecast.daily[4].humidity+ "%")
+                    $(".temp-fifth").text(forecast.daily[5].temp.day+ "F")
+                    $(".hum-fifth").text(forecast.daily[5].humidity+ "%")
                     // PSUEDO CODE
                     // for loop, i = 0 and i < 5 and i++
                     for (var i = 0; i < 5; i++) {
@@ -55,14 +64,6 @@ $(document).ready(function () {
                     forecast.append(element);
                         // append element to container for the forecast
                     }
-
-                    // extract temperature, humidity, icon of weather
-                    // display in the following order:
-                    // DATE
-                    // ICON
-                    // TEMP
-                    // HUMIDITY
-
 
                 });
                 function getForecast(cityName) {
